@@ -24,28 +24,31 @@ public class Board extends JFrame {
 		
 		super(n);
 		
+		/* Holds the four players info. */
 		JPanel playersBoard = new JPanel();
 		playersBoard.setLayout(new GridLayout(1,4));
 		
+		/* Create and add players to the board. */
 		p1 = new PlayerPanel();
 		p2 = new PlayerPanel();
 		p3 = new PlayerPanel();
 		p4 = new PlayerPanel();
-		
-		
-		buttonsPanel.setLayout(new GridLayout(1,3));
-		
-		buttonsPanel.add(hit);
-		buttonsPanel.add(stay);
-		buttonsPanel.add(bet);
-		
 		playersBoard.add(p1);
 		playersBoard.add(p2);
 		playersBoard.add(p3);
 		playersBoard.add(p4);
 		
+		/* Hit, stay, bet button panel. */
+		buttonsPanel.setLayout(new GridLayout(1,3));
+		buttonsPanel.add(hit);
+		buttonsPanel.add(stay);
+		buttonsPanel.add(bet);
+		
+		
+		dealerPanel.setBackground(new Color(0,153,0));
 		dealerPanel.add(new JTextField("Dealer"));
-		dealerPanel.add(new JTextField("Player turn"));
+		turnPanel.add(new JTextField("Player turn"));
+		turnPanel.setBackground(new Color(0,153,0));
 		
 		centerPanel.setLayout(new GridLayout(3,1));
 		centerPanel.setBackground(new Color(0,153,0));
@@ -54,6 +57,7 @@ public class Board extends JFrame {
 		centerPanel.add(new CardPanel());
 		
 		
+		/* Layout for the whole board, consists of upper, center, and north panels. */
 		setLayout(new BorderLayout());
 		add(centerPanel, BorderLayout.CENTER);
 		add(buttonsPanel, BorderLayout.NORTH);
