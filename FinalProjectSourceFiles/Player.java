@@ -33,12 +33,12 @@ public class Player {
 	
 	public void makeBet(int amount) {
 		
-		total -= amount;
+		wallet -= amount;
 	}
 	
-	public void addToAmount(int amount) {
+	public void addToWallet(int amount) {
 		
-		total += amount;
+		wallet += amount;
 	}
 	
 	public void reset() {

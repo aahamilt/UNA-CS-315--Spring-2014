@@ -14,11 +14,6 @@ public class BlackJack {
 		
 		initializeDeck();
 		
-		/*players = new Player[NUM_PLAYERS];
-		
-		for(int i = 0; i < NUM_PLAYERS; i++)
-			players[i] = new Player();*/
-		
 		players = p;
 	}
 	
