@@ -10,7 +10,7 @@ public class PlayerPanel extends JPanel{
 	
 	
 	
-	PlayerPanel() {
+	PlayerPanel(Player p) {
 		
 		betField.setBorder(null);
 		playerField.setBorder(null);
@@ -46,4 +46,20 @@ public class PlayerPanel extends JPanel{
 		
 	}
 	
+
+
+	public void setBetField(String bet) {
+		
+		betField.setText(bet);
+	}
+	
+	public void setWalletField(String wallet) {
+		
+		walletField.setText(wallet);
+	}
+	
+	public void setTotalField(String total) {
+		
+		totalField.setText(total);
+	}
 }
