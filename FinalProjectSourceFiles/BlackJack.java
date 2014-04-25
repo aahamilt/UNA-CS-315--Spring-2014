@@ -115,6 +115,10 @@ public class BlackJack {
 		dealer.reset();
 	}
 	
+	public int getNumPlayers(){
+		return NUM_PLAYERS;
+	}
+	
 	public int getTurn() {
 		
 		return turn;

@@ -28,12 +28,13 @@ public class CardPanel extends JPanel{
 		try {
 			
 		BufferedImage cardImg = ImageIO.read(new File("Cards.png"));
+		BufferedImage subImg = null;
 		
-		BufferedImage subImg = cardImg.getSubimage(0, 0, 73, 102);
-		
+		for(int i = 0, x = 0; i < player.getHandSize(); ++i, x += 10){
+			subImg = cardImg.getSubimage(player.getCard(i).getX(), player.getCard(i).getY(), player.getCard(i).getWidth(), player.getCard(i).getHeight());
+			g.drawImage(subImg, x, 0, null);
+		}
 		//for (int i = 0; i < player.getHandSize(); i++) {
-		
-		g.drawImage(subImg, 0, 0, null);
 		
 			//g.drawImage()
 			//player.getCard(i);

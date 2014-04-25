@@ -234,6 +234,10 @@ public class Board extends JFrame implements ActionListener{
 		game.shuffle();
 		game.deal();
 		
+		for(int i = 0; i < game.getNumPlayers(); ++i){
+			cardPanels[i].repaint();
+		}
+		
 		next.setEnabled(false);
 		
 		pot.setText("Pot: 0");
