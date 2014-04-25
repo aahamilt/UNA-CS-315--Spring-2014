@@ -33,9 +33,7 @@ public class Board extends JFrame implements ActionListener{
 	JPanel cardsPanel = new JPanel();
 	JPanel dealerPanel = new JPanel();
 	
-	CardPanel dealerCards = new CardPanel(dealer);
-	
-	public boolean initialized = false;
+	CardPanel dealerCards;
 	
 	Board(String n, BlackJack g) {
 		
@@ -48,7 +46,7 @@ public class Board extends JFrame implements ActionListener{
 		initializeButtonsPanel();
 		initializeCardPanels();
 		
-		initialized = true;
+		dealerCards = new CardPanel(dealer);
 		
 		cardsPanel.setLayout(new GridLayout(1,4));
 		
@@ -188,6 +186,8 @@ public class Board extends JFrame implements ActionListener{
 				playerPanels[game.getTurn()].setTotalField("Bust");
 				hit.setEnabled(false);
 		
+				cardPanels[game.getTurn()].repaint();
+				
 				game.nextTurn();
 				
 				if (game.getTurn() != 4) 
@@ -204,7 +204,7 @@ public class Board extends JFrame implements ActionListener{
 				setTotalField(Integer.toString(game.getPlayer(game.getTurn()).getTotal()));
 			}
 			
-			
+			cardPanels[game.getTurn()].repaint();
 			
 		}
 		

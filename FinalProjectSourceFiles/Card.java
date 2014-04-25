@@ -6,8 +6,8 @@ public class Card {
 	int value;
 	private int x;
 	private int y;
-	private final int width = 75;
-	private final int height = 104;
+	private final int width = 73;
+	private final int height = 103;
 	
 	Card(String s, String f, int v, int xVal, int yVal) {
 		

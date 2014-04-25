@@ -16,7 +16,7 @@ public class CardPanel extends JPanel{
 		
 		setBackground(new Color(0,153,0));
 		setLayout(new GridLayout(1,4));
-//		repaint();
+		repaint();
 		
 		
 	}
@@ -28,19 +28,15 @@ public class CardPanel extends JPanel{
 		
 		try {
 			
-		BufferedImage cardImg = ImageIO.read(new File("Cards.png"));
+			BufferedImage cardImg = ImageIO.read(new File("Cards.png"));
+		
+		//	    BufferedImage subImage = cardImg.getSubimage(0,0,(player.getCard(0)).getWidth(),(player.getCard(0)).getHeight());
+			for(int i = 0, x = 10; i < player.getHandSize(); ++i, x += 10){
+				System.out.println("It's TOTALLY WORKING!  WHOOOZAAA!!!");
+				BufferedImage subImg = cardImg.getSubimage(player.getCard(i).getX(), player.getCard(i).getY(), player.getCard(i).getWidth(), player.getCard(i).getHeight());
+				g.drawImage(subImg, x, 0, null);
+			}
 	
-		for(int i = 0, x = 0; i < player.getHandSize(); ++i, x += 10){
-			System.out.println("It's TOTALLY WORKING!  WHOOOZAAA!!!");
-			BufferedImage subImg = cardImg.getSubimage(player.getCard(i).getX(), player.getCard(i).getY(), player.getCard(i).getWidth(), player.getCard(i).getHeight());
-			g.drawImage(subImg, x, 0, null);
-		}
-		//for (int i = 0; i < player.getHandSize(); i++) {
-		
-			//g.drawImage()
-			//player.getCard(i);
-		//}
-		
 		} catch (IOException e) {} 
 		
 		
