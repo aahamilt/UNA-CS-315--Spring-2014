@@ -8,17 +8,35 @@ public class Player {
 	private int wallet;
 	private int handSize;
 	private int handIndex;
+	private int bet;
 	private boolean bust;
+	private boolean inHand;
+	private boolean inGame;
 	
 
 	Player() {
 		
 		bust = false;
+		inHand = true;
+		inGame = true;
 		total = 0;
 		wallet = 300;
 		handSize = 0;
 		handIndex = 0;
+		bet = 0;
 	}
+	
+	public Card getCard (int index) {
+		
+		return hand.get(index);
+	}
+	
+	public void stay() {
+		
+		inHand = false;
+	}
+	
+		
 	
 	public void addToHand(Card c) {
 		
@@ -27,13 +45,22 @@ public class Player {
 		handIndex++;
 		total += c.getValue();
 		
-		if (total > 21)
+		if (total > 21) {
+			
 			bust = true;
+			inHand = false;
+		}
 	}
 	
 	public void makeBet(int amount) {
 		
 		wallet -= amount;
+		bet += amount;
+	}
+	
+	public int getBet() {
+		
+		return bet;
 	}
 	
 	public void addToWallet(int amount) {
@@ -71,5 +98,15 @@ public class Player {
 	public int getHandIndex() {
 		
 		return handIndex;
+	}
+	
+	public boolean getInGame() {
+		
+		return inGame;
+	}
+	
+	public boolean getInHand() {
+		
+		return inHand;
 	}
 }

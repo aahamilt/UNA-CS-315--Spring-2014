@@ -4,17 +4,25 @@ public class BlackJack {
 	
 	private Card [] deck = new Card[52];
 	private Player [] players;
+	private Player dealer;
 	private int deckIndex;
 	
 	private final int INIT_DEAL = 4;
 	private final int NUM_PLAYERS = 4;
 	private final int NUM_SHUFFLE = 200;
 	
-	BlackJack(Player [] p) {
+	private int turn;
+	private int pot;
+	
+	BlackJack(Player [] p, Player d) {
 		
 		initializeDeck();
 		
+		dealer = d;
 		players = p;
+		
+		turn = 0;
+		pot = 0;
 	}
 	
 	public void shuffle() {
@@ -41,6 +49,11 @@ public class BlackJack {
 		/* Deal first card to each player. */
 		for (int i = 0; i < INIT_DEAL; i++) {
 			
+			if (getPlayer().getInGame() == false) {
+				
+				continue;
+			}
+			
 			players[i].addToHand(deck[deckIndex]);
 			deckIndex++;
 		}
@@ -51,12 +64,26 @@ public class BlackJack {
 			players[i].addToHand(deck[deckIndex]);
 			deckIndex++;
 		}
+		
+		/* Deal to dealer. */
+		
+		dealer.addToHand(deck[deckIndex]);
+		deckIndex++;
+		dealer.addToHand(deck[deckIndex]);
+		deckIndex++;
+		
 	}
 	
 	public void hit(Player p) {
 		
 		p.addToHand(deck[deckIndex]);
 		deckIndex++;
+		
+	}
+	
+	public Player getPlayer() {
+		
+		return players[turn];
 	}
 	
 	public Player getPlayer(int index) {
@@ -64,15 +91,50 @@ public class BlackJack {
 		return players[index];
 	}
 	
+	public void getBet(int amount) {
+		
+		pot += amount;
+	}
+	
+	public void stay() {
+		
+		
+		nextTurn();
+	}
+	
 	public void reset() {
 		
 		deckIndex = 0;
+		turn = 0;
+		pot = 0;
 		shuffle();
 		
 		for (int i = 0; i < NUM_PLAYERS; i++) 
 			players[i].reset();
+		
+		dealer.reset();
+	}
+	
+	public int getTurn() {
+		
+		return turn;
+	}
+	
+	public void nextTurn() {
+		
+		turn++;
+	}
+	
+	public int getPot() {
+		
+		return pot;
 	}
 
+	public Player getDealer() {
+		
+		return dealer;
+	}
+	
 	public void initializeDeck() {
 	 
 	 	deck[ 0] = new Card("Spades", "Ace", 1);

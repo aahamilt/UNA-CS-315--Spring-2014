@@ -1,25 +1,18 @@
 
 public class Driver {
 
-	/*public static void main(String[] args) {
+	public static void main(String[] args) {
 		
 		Player [] players = new Player[4];
 		
 		for (int i = 0; i < 4; i++)
 			players[i] = new Player();
 		
-		BlackJack b = new BlackJack(players);
+		Player dealer = new Player();
 		
-		int turn = 0;
+		BlackJack game = new BlackJack(players, dealer);
 		
-		while (true) {
-			
-			
-			b.shuffle();
-			b.deal();
-			
-			System.out.println("Player" + turn + "'s turn.");
-		}
+		Board board = new Board("Test", game);
 		
-	}*/
+	}
 }

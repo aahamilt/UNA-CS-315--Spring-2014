@@ -8,10 +8,16 @@ import java.io.IOException;
 
 public class CardPanel extends JPanel{
 	
-	CardPanel() {
+	Player player;
+	
+	CardPanel(Player p) {
 		
+		player = p;
+		
+		setBackground(new Color(0,153,0));
 		setLayout(new GridLayout(1,4));
 		repaint();
+		
 		
 	}
 	
@@ -25,21 +31,16 @@ public class CardPanel extends JPanel{
 		
 		BufferedImage subImg = cardImg.getSubimage(0, 0, 73, 102);
 		
+		//for (int i = 0; i < player.getHandSize(); i++) {
+		
 		g.drawImage(subImg, 0, 0, null);
+		
+			//g.drawImage()
+			//player.getCard(i);
+		//}
 		
 		} catch (IOException e) {} 
 		
 		
-		
-		
-		
-		
-		//g.setColor(Color.RED);
-		//g.drawRect(0, 0, 73, 102);
-		//g.fillRect(0, 0, 73, 102);
-		
-		//g.setColor(Color.BLUE);
-		//g.drawRect(36,0,73,102);
-		//g.fillRect(36,0,73,102);
 	}
 }
