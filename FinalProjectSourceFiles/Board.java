@@ -35,6 +35,8 @@ public class Board extends JFrame implements ActionListener{
 	
 	CardPanel dealerCards = new CardPanel(dealer);
 	
+	public boolean initialized = false;
+	
 	Board(String n, BlackJack g) {
 		
 		super(n);
@@ -45,6 +47,8 @@ public class Board extends JFrame implements ActionListener{
 		initializePlayerPanels();
 		initializeButtonsPanel();
 		initializeCardPanels();
+		
+		initialized = true;
 		
 		cardsPanel.setLayout(new GridLayout(1,4));
 		
@@ -245,7 +249,8 @@ public class Board extends JFrame implements ActionListener{
 		game.shuffle();
 		game.deal();
 		
-		for(int i = 0; i < game.getNumPlayers(); ++i){
+//		for(int i = 0; i < game.getNumPlayers(); i++){
+		for(int i = 0; i < 4; i++){
 			cardPanels[i].repaint();
 		}
 		

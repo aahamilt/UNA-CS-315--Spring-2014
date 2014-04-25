@@ -16,22 +16,23 @@ public class CardPanel extends JPanel{
 		
 		setBackground(new Color(0,153,0));
 		setLayout(new GridLayout(1,4));
-		repaint();
+//		repaint();
 		
 		
 	}
 	
 	public void paintComponent(Graphics g) {
 		
+		System.out.println("It's working!");
 		super.paintComponent(g);
 		
 		try {
 			
 		BufferedImage cardImg = ImageIO.read(new File("Cards.png"));
-		BufferedImage subImg = null;
-		
+	
 		for(int i = 0, x = 0; i < player.getHandSize(); ++i, x += 10){
-			subImg = cardImg.getSubimage(player.getCard(i).getX(), player.getCard(i).getY(), player.getCard(i).getWidth(), player.getCard(i).getHeight());
+			System.out.println("It's TOTALLY WORKING!  WHOOOZAAA!!!");
+			BufferedImage subImg = cardImg.getSubimage(player.getCard(i).getX(), player.getCard(i).getY(), player.getCard(i).getWidth(), player.getCard(i).getHeight());
 			g.drawImage(subImg, x, 0, null);
 		}
 		//for (int i = 0; i < player.getHandSize(); i++) {
