@@ -182,10 +182,16 @@ public class Board extends JFrame implements ActionListener{
 			if (game.getPlayer(game.getTurn()).getBust()) {
 				
 				playerPanels[game.getTurn()].setTotalField("Bust");
+				hit.setEnabled(false);
+		
 				game.nextTurn();
-				playerTurn.setText("Player " + Integer.toString((game.getTurn()) + 1) + "'s Turn");
+				
+				if (game.getTurn() != 4) 
+					playerTurn.setText("Player " + Integer.toString((game.getTurn()) + 1) + "'s Turn");
+				
 				if (checkEnd())
 					handleEnd();
+				
 			}
 			
 			else {
@@ -209,6 +215,9 @@ public class Board extends JFrame implements ActionListener{
 			else
 				playerTurn.setText("Player " + Integer.toString((game.getTurn()) + 1) + "'s Turn");
 			
+			if (hit.isEnabled())
+				hit.setEnabled(false);
+			
 		}
 		
 		else if (source == bet) {
@@ -218,6 +227,8 @@ public class Board extends JFrame implements ActionListener{
 			pot.setText("Pot: " + game.getPot());
 			playerPanels[game.getTurn()].setWalletField("Wallet: "  + Integer.toString(game.getPlayer().getWallet()));
 			playerPanels[game.getTurn()].setBetField("Bet: " + Integer.toString(game.getPlayer().getBet()));
+			
+			hit.setEnabled(true);
 			
 			
 		}
@@ -239,6 +250,7 @@ public class Board extends JFrame implements ActionListener{
 		}
 		
 		next.setEnabled(false);
+		hit.setEnabled(false);
 		
 		pot.setText("Pot: 0");
 		
@@ -266,29 +278,36 @@ public class Board extends JFrame implements ActionListener{
 		
 		boolean bust = false;
 		
+		/* Dealer logic. */
 		
-		while(dealer.getTotal() < 15) {
+		if (allBust() == false) {
+		
+			while(dealer.getTotal() < 15) {
+				
+				game.hit(dealer);
+				dealerTotal.setText(Integer.toString(game.getDealer().getTotal()));
+			}
 			
-			game.hit(dealer);
-			dealerTotal.setText(Integer.toString(game.getDealer().getTotal()));
+			if (dealer.getBust()) {
+				
+				dealerField.setText("Bust");
+				bust = true;
+			}
+			
+			else if (dealer.getTotal() < 17) {
+				
+				game.hit(dealer);
+				dealerTotal.setText(Integer.toString(game.getDealer().getTotal()));
+			}
+		
 		}
 		
 		if (dealer.getBust()) {
-			
-			dealerField.setText("Bust");
-			bust = true;
-		}
-		
-		else if (dealer.getTotal() < 17) {
-			
-			game.hit(dealer);
-			dealerTotal.setText(Integer.toString(game.getDealer().getTotal()));
-		}
-		
-		if (dealer.getBust()) {
 			bust = true;
 			dealerField.setText("Bust");
 		}
+		
+		
 		
 		/* Dealer busted, all players who didn't bust win. */
 		if (bust) {
@@ -309,8 +328,66 @@ public class Board extends JFrame implements ActionListener{
 					winners.add(game.getPlayer(i));
 			}
 		}
+		
+		for (int i = 0; i < 4; i++) {
+			
+			if (isWinner(game.getPlayer(i)))
+				game.getPlayer(i).addToWallet(game.getPot()/winners.size());
+		}
+			
+		for (int i = 0; i < 4; i++) {
+			
+			playerPanels[i].setWalletField(Integer.toString(game.getPlayer(i).getWallet()));
+		}
+		
+		if (winners.size() == 0)
+			playerTurn.setText("The house wins!");
+		
+		else if (winners.size() == 1) {
+			
+			playerTurn.setText("Player " + Integer.toString(winners.get(0).getPlayerNumber() + 1) + " wins!");
+		}
+		
+		else if (winners.size() == 2) {
+			
+			playerTurn.setText("Players " + Integer.toString(winners.get(0).getPlayerNumber() + 1) + " and "
+			+ Integer.toString(winners.get(1).getPlayerNumber() + 1) + " win!");
+		}
+		
+		else if (winners.size() == 3) {
+			
+			playerTurn.setText("Players " + Integer.toString(winners.get(0).getPlayerNumber() + 1) + ", "
+					+ Integer.toString(winners.get(1).getPlayerNumber() + 1) + ", and " + 
+					Integer.toString(winners.get(2).getPlayerNumber() + 1) + "win!");
+		}
+		
+		else
+			playerTurn.setText("All players win!");
+			
 			
 		next.setEnabled(true);
 		
 	}
+	
+	public boolean isWinner(Player p) {
+		
+		for (int i = 0; i < winners.size(); i++) {
+			
+			if(p == winners.get(i))
+				return true;
+		}
+		
+		return false;
+	}
+	
+	public boolean allBust() {
+		
+		if (game.getPlayer(0).getBust() == true && game.getPlayer(1).getBust() == true &&
+		game.getPlayer(2).getBust() == true && game.getPlayer(3).getBust())
+			return true;
+		
+		return false;
+ 		
+	}
+
 }

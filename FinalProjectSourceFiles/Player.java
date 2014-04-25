@@ -9,13 +9,15 @@ public class Player {
 	private int handSize;
 	private int handIndex;
 	private int bet;
+	private int playerNumber;
 	private boolean bust;
 	private boolean inHand;
 	private boolean inGame;
 	
 
-	Player() {
+	Player(int p) {
 		
+		playerNumber = p;
 		bust = false;
 		inHand = true;
 		inGame = true;
@@ -40,16 +42,33 @@ public class Player {
 	
 	public void addToHand(Card c) {
 		
-		hand.add(handIndex, c);
+		hand.add(c);	
 		handSize++;
 		handIndex++;
-		total += c.getValue();
+		
+		/* Special case for being dealt ace and 10. */
+		
+		if (handSize == 2) {
+			
+			if ((hand.get(0).getValue() + hand.get(1).getValue()) == 11)
+				total = 21;
+			
+			else if ((hand.get(0).getValue() + hand.get(1).getValue()) == 2)
+				total = 12;
+			
+			else 
+				total += c.getValue();
+		}
+		
+		else 
+			total += c.getValue();
 		
 		if (total > 21) {
 			
 			bust = true;
 			inHand = false;
 		}
+		
 	}
 	
 	public void makeBet(int amount) {
@@ -108,5 +127,10 @@ public class Player {
 	public boolean getInHand() {
 		
 		return inHand;
+	}
+	
+	public int getPlayerNumber() {
+		
+		return playerNumber;
 	}
 }
